@@ -303,6 +303,13 @@ extension Proxy {
             self.name = name
             self.type = type
         }
+        
+        if !(self.name.count > 0) {
+//            self.name = String.localizedStringWithFormat("RamName%ld", arc4random() % 10000);
+//            self.name = self.host + ":" + "\(self.port)";
+            self.name = self.host;
+        }
+        
         if realm.objects(Proxy.self).filter("name = '\(name)'").first != nil {
             self.name = "\(name) \(Proxy.dateFormatter.string(from: Date()))"
         }
