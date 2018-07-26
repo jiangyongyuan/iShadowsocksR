@@ -56,12 +56,12 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
             <<< ActionRow {
                 $0.title = "User Manual".localized()
             }.onCellSelection({ [unowned self] (cell, row) in
-                self.showUserManual()
+//                self.showUserManual()
             })
             <<< ActionRow {
                 $0.title = "Feedback".localized()
             }.onCellSelection({ (cell, row) in
-                FeedbackManager.shared.showFeedback()
+//                FeedbackManager.shared.showFeedback()
             })
         return section
     }
@@ -96,12 +96,12 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
             <<< ActionRow() {
                 $0.title = "Rate on App Store".localized()
             }.onCellSelection({ (cell, row) -> () in
-                Appirater.rateApp()
+//                Appirater.rateApp()
             })
             <<< ActionRow() {
                 $0.title = "Share with friends".localized()
             }.onCellSelection({ [unowned self] (cell, row) -> () in
-                self.shareWithFriends()
+//                self.shareWithFriends()
             })
         return section
     }
@@ -111,21 +111,21 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
         section
             <<< ActionRow() {
                 $0.title = "Follow on Twitter".localized()
-                $0.value = "@PotatsoApp"
+                $0.value = "@SSRApp"
             }.onCellSelection({ [unowned self] (cell, row) -> () in
-                self.followTwitter()
+//                self.followTwitter()
             })
             <<< ActionRow() {
                 $0.title = "Follow on Weibo".localized()
-                $0.value = "@Potatso"
+                $0.value = "@SSR"
             }.onCellSelection({ [unowned self] (cell, row) -> () in
-                self.followWeibo()
+//                self.followWeibo()
             })
             <<< ActionRow() {
                 $0.title = "Join Telegram Group".localized()
-                $0.value = "@Potatso"
+                $0.value = "@SSR"
             }.onCellSelection({ [unowned self] (cell, row) -> () in
-                self.joinTelegramGroup()
+//                self.joinTelegramGroup()
             })
             <<< LabelRow() {
                 $0.title = "Version".localized()
