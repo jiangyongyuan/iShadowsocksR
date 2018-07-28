@@ -61,6 +61,7 @@ class ProxyRowCell: Cell<Proxy>, CellType {
             titleLabel.text = proxy.name
             iconImageView.isHidden = false
             iconImageView.image = UIImage(named: "Shadowsocks")
+            detailTextLabel?.text = nil
         }else {
             titleLabel.text = "None".localized()
             iconImageView.isHidden = true

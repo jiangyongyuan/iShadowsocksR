@@ -90,15 +90,16 @@ class DashboardVC: FormViewController {
 
     func generateLogSection() -> Section {
         let section = Section()
-        section <<< LabelRow() {
-            $0.title = "Recent Requests".localized()
-        }.cellSetup({ (cell, row) -> () in
-            cell.accessoryType = .disclosureIndicator
-            cell.selectionStyle = .default
-        }).onCellSelection({ [unowned self](cell, row) -> () in
-            cell.setSelected(false, animated: true)
-            self.showRecentRequests()
-        })
+        section
+//        <<< LabelRow() {
+//            $0.title = "Recent Requests".localized()
+//        }.cellSetup({ (cell, row) -> () in
+//            cell.accessoryType = .disclosureIndicator
+//            cell.selectionStyle = .default
+//        }).onCellSelection({ [unowned self](cell, row) -> () in
+//            cell.setSelected(false, animated: true)
+//            self.showRecentRequests()
+//        })
         <<< LabelRow() {
             $0.title = "Logs".localized()
         }.cellSetup({ (cell, row) -> () in
