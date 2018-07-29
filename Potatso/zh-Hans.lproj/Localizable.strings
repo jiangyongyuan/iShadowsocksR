@@ -3,6 +3,7 @@
 "qrcode.title" = "扫描二维码";
 "qrcode.album" = "相册";
 
+"Delete" = "删除";
 
 "%d ms" = "%d 毫秒";
 "%d rule" = "%d 条规则";

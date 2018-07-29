@@ -12,7 +12,7 @@ import SwiftColor
 struct Color {
     
     static let Brand = Color.Black
-    static let Action = "007AFF".color
+    static let Action = "02C39A".color
     static let Black = "333333".color
     static let Gray = "8E8E93".color
     static let Separator = "E0E0E0".color
@@ -25,7 +25,7 @@ struct Color {
     static let TabItemUnselected = "D7D7D7".color
 
     static let StatusOn = "FF5E3B".color
-    static let StatusOff = "1E96E2".color
+    static let StatusOff = "02C39A".color
     static let StatusConnecting = "F5A623".color
     
     static let TextMost = Color.Black

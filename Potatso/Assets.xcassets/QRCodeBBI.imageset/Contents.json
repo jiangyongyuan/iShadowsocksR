@@ -6,12 +6,12 @@
     },
     {
       "idiom" : "universal",
-      "filename" : "plane_26x26.png",
+      "filename" : "qrcode_36x36.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "plane_39x39.png",
+      "filename" : "qrcode_54x54.png",
       "scale" : "3x"
     }
   ],

@@ -35,8 +35,10 @@ final class ProxyRow: _ProxyRow, RowType {
 
 class ProxyRowCell: Cell<Proxy>, CellType {
 
-    let group = ConstraintGroup()
+    open var proxyModel: Proxy?
 
+    let group = ConstraintGroup()
+    
     required init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
@@ -53,6 +55,7 @@ class ProxyRowCell: Cell<Proxy>, CellType {
         separatorInset = UIEdgeInsets.zero
         contentView.addSubview(titleLabel)
         contentView.addSubview(iconImageView)
+        proxyModel = nil
     }
 
     override func update() {
@@ -62,6 +65,15 @@ class ProxyRowCell: Cell<Proxy>, CellType {
             iconImageView.isHidden = false
             iconImageView.image = UIImage(named: "Shadowsocks")
             detailTextLabel?.text = nil
+            
+        }else if let proxy1 = proxyModel {
+
+            titleLabel.text = proxy1.name
+            iconImageView.isHidden = false
+            iconImageView.image = UIImage(named: "Shadowsocks")
+            detailTextLabel?.text = nil
+
+            
         }else {
             titleLabel.text = "None".localized()
             iconImageView.isHidden = true

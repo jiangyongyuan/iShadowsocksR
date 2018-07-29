@@ -12,13 +12,47 @@ import Appirater
 import Fabric
 import LogglyLogger_CocoaLumberjack
 
+import LeanCloud
+
 let appID = "1070901416"
 
 class AppInitializer: NSObject, AppLifeCycleProtocol {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        _  = UIViewController.shared
         
+        LeanCloud.initialize(applicationID: "EDi3uUcJhRLi3hjOY96bYG8K-gzGzoHsz", applicationKey: "Q5WNLGA7HNev3dC1CcrRmLUo")
+        
+//        let query = LCQuery(className: "Subscribe")
+//        query.whereKey("address", .matchedSubstring("WePNdffr"))
+//
+//        query.find { result in
+//            switch result {
+//            case .success(let objects):
+//
+//                if objects.count == 0 {
+//                    let post = LCObject(className: "Subscribe")
+//                    post.set("address", value: "WePNbbb")
+//                    post.save{ result in
+//                        switch result {
+//                        case .success:
+//
+//                            break
+//                        case .failure(let error):
+//                            print(error)
+//                            break
+//                        }
+//                    }
+//                }
+//                break // 查询成功
+//
+//            case .failure(let error):
+//                print(error)
+//                break // 查询失败
+//            }
+//        }
+        
+        
+        _  = UIViewController.shared
         configLogging()
         configAppirater()
         #if !DEBUG

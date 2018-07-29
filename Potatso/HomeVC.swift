@@ -55,13 +55,29 @@ class HomeVC: FormViewController, UINavigationControllerDelegate, HomePresenterP
         handleRefreshUI()
 //        navigationItem.leftBarButtonItem = UIBarButtonItem(image: "List".templateImage, style: .plain, target: presenter, action: #selector(HomePresenter.chooseConfigGroups))
 //        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: presenter, action: #selector(HomePresenter.showAddConfigGroup))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(add))
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(add))
+        
+        let addBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(add))
+        let QRCodeBarButtonItem = UIBarButtonItem(image: "QRCodeBBI".image, style: .plain, target: self, action: #selector(addQRCode))
+        let URLBarButtonItem = UIBarButtonItem(image: "URLBBI".image, style: .plain, target: self, action: #selector(addURL))
+        navigationItem.rightBarButtonItems = [addBarButtonItem, QRCodeBarButtonItem, URLBarButtonItem]
     }
     
     @objc func add() {
         let vc = ProxyConfigurationViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
+    
+    @objc func addQRCode() {
+        let importer = Importer(vc: self)
+        importer.importConfigFromQRCode()
+    }
+    
+    @objc func addURL() {
+        let importer = Importer(vc: self)
+        importer.importConfigFromUrl()
+    }
+    
 
     // MARK: - HomePresenter Protocol
 
@@ -189,6 +205,8 @@ class HomeVC: FormViewController, UINavigationControllerDelegate, HomePresenterP
                         }
                     })
                     $0.trailingSwipe.actions = [delete]
+                    $0.trailingSwipe.performsFirstActionWithFullSwipe = true
+
                 }.cellSetup({ (cell, row) -> () in
                     cell.selectionStyle = .none
                 })

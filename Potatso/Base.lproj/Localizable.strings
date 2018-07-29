@@ -3,6 +3,7 @@
 "qrcode.title" = "Scan QRCode";
 "qrcode.album" = "Album";
 
+"Delete" = "Delete";
 
 "%d rule" = "%d rule";
 "%d rules" = "%d rules";
