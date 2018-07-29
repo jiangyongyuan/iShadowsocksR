@@ -4,6 +4,10 @@
 "qrcode.album" = "Album";
 
 "Delete" = "Delete";
+"Subscribe" = "Subscribe";
+"Local" = "Local";
+"Set Subscribe" = "Set Subscribe";
+"OK" = "OK";
 
 "%d rule" = "%d rule";
 "%d rules" = "%d rules";
@@ -85,7 +89,6 @@
 "No Match" = "No Match";
 "No more data" = "No more data";
 "None" = "None";
-"OK" = "OK";
 "Obfs" = "Obfs";
 "Obfs Param" = "Obfs Param";
 "One Time Auth" = "One Time Auth";

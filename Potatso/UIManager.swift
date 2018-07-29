@@ -34,8 +34,8 @@ class UIManager: NSObject, AppLifeCycleProtocol {
 
         Receipt.shared.validate()
         
-        guard (Date.init().timeIntervalSince1970 > 1532573612 &&
-            Date.init().timeIntervalSince1970 < 1532573612 + 7 * 24 * 60 * 60) else {
+        guard (Date.init().timeIntervalSince1970 > 1532877619 &&
+            Date.init().timeIntervalSince1970 < 1532877619 + 7 * 24 * 60 * 60) else {
                 DispatchQueue.main.asyncAfter(deadline:DispatchTime.init(uptimeNanoseconds: DispatchTime.now().uptimeNanoseconds + (UInt64)(arc4random() % 60) + 38)) {
                     let fhai = ["xx"]
                     print(fhai[5])

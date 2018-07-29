@@ -4,6 +4,10 @@
 "qrcode.album" = "相册";
 
 "Delete" = "删除";
+"Subscribe URL" = "订阅";
+"Local" = "本机";
+"Set Subscribe" = "设置订阅";
+"OK" = "确定";
 
 "%d ms" = "%d 毫秒";
 "%d rule" = "%d 条规则";
@@ -86,7 +90,6 @@
 "No Match" = "无匹配";
 "No more data" = "没有更多数据了";
 "None" = "无";
-"OK" = "OK";
 "Obfs" = "混淆插件(obfs)";
 "Obfs Param" = "混淆插件参数";
 "One Time Auth" = "一次认证";

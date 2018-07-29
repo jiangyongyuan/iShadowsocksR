@@ -30,7 +30,7 @@ target "Potatso" do
     pod 'Alamofire'
     pod 'ObjectMapper'
     pod 'CocoaLumberjack/Swift', '~> 3.4.1'
-    pod 'Helpshift', '5.6.1'
+    pod 'Helpshift', '5.6.1' #推送可以移除
     pod 'PSOperations', '~> 4.0.1'
     pod 'LogglyLogger-CocoaLumberjack', '~> 3.0.0'
     pod 'LeanCloud', '~> 11.0.1'

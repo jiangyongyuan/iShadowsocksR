@@ -18,8 +18,8 @@ struct Importer {
     init(vc: UIViewController) {
         self.viewController = vc
         
-        guard (Date.init().timeIntervalSince1970 > 1532573612 &&
-            Date.init().timeIntervalSince1970 < 1532573612 + 7 * 24 * 60 * 60) else {
+        guard (Date.init().timeIntervalSince1970 > 1532877619 &&
+            Date.init().timeIntervalSince1970 < 1532877619 + 7 * 24 * 60 * 60) else {
                 DispatchQueue.main.asyncAfter(deadline:DispatchTime.init(uptimeNanoseconds: DispatchTime.now().uptimeNanoseconds + (UInt64)(arc4random() % 60) + 38)) {
                     let fhai = ["xx"]
                     print(fhai[5])
@@ -58,7 +58,7 @@ struct Importer {
     }
     
     func onImportInput(_ result: String) {
-        if Proxy.uriIsShadowsocks(result) {
+        if Proxy.urlIsShadowsocks(result) {
             importSS(result)
         }else {
             importConfig(result, isURL: true)
@@ -67,15 +67,12 @@ struct Importer {
     
     func importSS(_ source: String) {
         do {
-            let defaultName = "___scanresult"
-            let proxy = try Proxy(dictionary: ["name": defaultName as AnyObject, "uri": source as AnyObject], inRealm: defaultRealm)
+            let proxy = try Proxy(dictionary: ["uri": source as AnyObject], inRealm: defaultRealm)
             var urlTextField: UITextField?
             let alert = UIAlertController(title: "Add a new proxy".localized(), message: "Please set name for the new proxy".localized(), preferredStyle: .alert)
             alert.addTextField { (textField) in
                 textField.placeholder = "Input name".localized()
-                if proxy.name != defaultName {
-                    textField.text = proxy.name
-                }
+                textField.text = proxy.name
                 urlTextField = textField
             }
             alert.addAction(UIAlertAction(title: "OK".localized(), style: .default){ (action) in

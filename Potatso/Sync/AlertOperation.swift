@@ -75,7 +75,7 @@ open class AlertOperation: PSOperations.Operation {
         
         DispatchQueue.main.async {
             if self.alertController.actions.isEmpty {
-                self.addAction("OK")
+                self.addAction("OK".localized())
             }
             
             presentationContext.present(self.alertController, animated: true, completion: nil)
