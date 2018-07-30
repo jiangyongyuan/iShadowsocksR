@@ -49,7 +49,7 @@ class HomeVC: FormViewController, UINavigationControllerDelegate, HomePresenterP
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationItem.titleView = titleButton
+//        self.navigationItem.titleView = titleButton
         // Post an empty message so we could attach to packet tunnel process
         Manager.sharedManager.postMessage()
         handleRefreshUI()

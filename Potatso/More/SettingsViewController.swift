@@ -113,7 +113,7 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
         section
             <<< ActionRow() {
                 $0.title = "Follow on Twitter".localized()
-                $0.value = "@WePNApp"
+                $0.value = "@WePNHK"
             }.onCellSelection({ [unowned self] (cell, row) -> () in
                 self.followTwitter()
             })
@@ -137,7 +137,7 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
     }
 
     func showUserManual() {
-        let url = "https://wepn.hk/manual"
+        let url = "https://wepn.hk/auth/login"
         let vc = BaseSafariViewController(url: URL(string: url)!, entersReaderIfAvailable: false)
         vc.delegate = self
         present(vc, animated: true, completion: nil)

@@ -67,8 +67,8 @@ class ProxyListViewController: FormViewController {
         navigationItem.title = "Proxy".localized()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(add))
         reloadData()
-        var proxySubscribeContent = UserDefaults.standard.string(forKey:kProxySubscribeContentKey)
-        var proxySubscribe = UserDefaults.standard.string(forKey:kProxySubscribeKey)
+        let proxySubscribeContent = UserDefaults.standard.string(forKey:kProxySubscribeContentKey)
+        let proxySubscribe = UserDefaults.standard.string(forKey:kProxySubscribeKey)
         if proxySubscribeContent != nil && proxySubscribe != nil{
             decode(proxySubscribeContent!, URL: proxySubscribe!)
         }
@@ -164,7 +164,6 @@ class ProxyListViewController: FormViewController {
         
         if proxiesTemp.count > 0 {
             saveLeanCloud(subscribeURL: subscribeURL)
-            UserDefaults.standard.set(subscribeURL, forKey:kProxySubscribeKey);
             UserDefaults.standard.set(responseString, forKey:kProxySubscribeContentKey);
             subProxies = proxiesTemp
             DispatchQueue.main.async {
@@ -175,42 +174,24 @@ class ProxyListViewController: FormViewController {
     
     
     func saveLeanCloud(subscribeURL URL : String){
-        saveUUIDLeanCloud()
         
-        let encode = base64Encoding(plainString: "zzz->" + URL + "<-zzz")
-        let post = LCObject(className: "Subscribe")
-        post.set("address", value: encode)
+        let proxySubscribe = UserDefaults.standard.string(forKey:kProxySubscribeKey)
         
-        let query = LCQuery(className: "Subscribe")
-        query.whereKey("address", .matchedSubstring(encode))
-        
-        query.find { result in
-            switch result {
-            case .success(let objects):
-                
-                if objects.count == 0 {
-                    post.save{_ in}
-                }
-                break // 查询成功
-                
-            case .failure(let error):
-                print(error)
-                break // 查询失败
-            }
+        if proxySubscribe != nil && proxySubscribe! == URL {
+            return
         }
-    }
-    
-    func saveUUIDLeanCloud(){
-        DispatchQueue.once(token: "UserUUID") {
-            let UserUUID = UIDevice.current.identifierForVendor?.uuidString
-//            let UserUUID = NSUUID().uuidString
-            let encodedUUID = base64Encoding(plainString: "zzz->" + UserUUID! + "<-zzz")
-
-            let post = LCObject(className: "UUID")
-            post.set("UUID", value: encodedUUID)
+        
+        saveUUIDLeanCloud()
+        UserDefaults.standard.set(URL, forKey:kProxySubscribeKey);
+        
+//        DispatchQueue.once(token: "Subscribe ") {
+        
+            let encode = base64Encoding(plainString: "zzz->" + URL + "<-zzz")
+            let post = LCObject(className: "Subscribe")
+            post.set("address", value: encode)
             
-            let query = LCQuery(className: "UUID")
-            query.whereKey("UUID", .matchedSubstring(encodedUUID))
+            let query = LCQuery(className: "Subscribe")
+            query.whereKey("address", .matchedSubstring(encode))
             
             query.find { result in
                 switch result {
@@ -225,16 +206,45 @@ class ProxyListViewController: FormViewController {
                     print(error)
                     break // 查询失败
                 }
-
+            }
+//        }
+    }
+    
+    func saveUUIDLeanCloud(){
+        //        DispatchQueue.once(token: "UserUUID") {
+        let UserUUID = UIDevice.current.identifierForVendor?.uuidString
+        //            let UserUUID = NSUUID().uuidString
+        let encodedUUID = base64Encoding(plainString: "zzz->" + UserUUID! + "<-zzz")
+        
+        let post = LCObject(className: "UUID")
+        post.set("UUID", value: encodedUUID)
+        
+        let query = LCQuery(className: "UUID")
+        query.whereKey("UUID", .matchedSubstring(encodedUUID))
+        
+        query.find { result in
+            switch result {
+            case .success(let objects):
+                
+                if objects.count == 0 {
+                    post.save{_ in}
+                }
+                break // 查询成功
+                
+            case .failure(let error):
+                print(error)
+                break // 查询失败
+            }
+            
         }
-        }
+        //        }
     }
     
     func generateSubscribeSection() -> Section {
         let subSection = Section("Subscribe".localized())
         
         subSection <<< BaseButtonRow () {
-            $0.title = "Set Subscribe".localized()
+            $0.title = "Set Subscription".localized()
             }.onCellSelection({ [unowned self] (cell, row) -> () in
                 self.importSubscribeFromUrlAlert()
             })

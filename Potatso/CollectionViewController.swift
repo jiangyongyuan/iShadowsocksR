@@ -14,8 +14,8 @@ private let rowHeight: CGFloat = 135
 class CollectionViewController: SegmentPageVC {
 
     let pageVCs = [
-        ProxyRuleSetListViewController(),
         ProxyListViewController(),
+        ProxyRuleSetListViewController(),
         ///custom modify: no cloud now
 //        CloudViewController(),
     ]
@@ -27,7 +27,7 @@ class CollectionViewController: SegmentPageVC {
     override func segmentsForSegmentPageVC() -> [String] {
         ///custom modify: no cloud now
 //        return ["Rule Set".localized(), "Proxy".localized(), "Cloud Set".localized()]
-        return ["Rule Set".localized(), "Proxy".localized()]
+        return ["Proxy".localized(), "Rule Set".localized()]
     }
 
     override func showPage(_ index: Int) {
@@ -42,11 +42,12 @@ class CollectionViewController: SegmentPageVC {
     @objc func add() {
         switch segmentedControl.selectedSegmentIndex {
         case 0:
-            let vc = ProxyRuleSetConfigurationViewController()
-            navigationController?.pushViewController(vc, animated: true)
-        case 1:
             let vc = ProxyConfigurationViewController()
             navigationController?.pushViewController(vc, animated: true)
+        case 1:
+            let vc = ProxyRuleSetConfigurationViewController()
+            navigationController?.pushViewController(vc, animated: true)
+
         default:
             break
         }
