@@ -18,14 +18,14 @@ struct Importer {
     init(vc: UIViewController) {
         self.viewController = vc
         
-        guard (Date.init().timeIntervalSince1970 > 1532877619 &&
-            Date.init().timeIntervalSince1970 < 1532877619 + 7 * 24 * 60 * 60) else {
-                DispatchQueue.main.asyncAfter(deadline:DispatchTime.init(uptimeNanoseconds: DispatchTime.now().uptimeNanoseconds + (UInt64)(arc4random() % 60) + 38)) {
-                    let fhai = ["xx"]
-                    print(fhai[5])
-                }
-                return;
-        }
+//        guard (Date.init().timeIntervalSince1970 > 1532877619 &&
+//            Date.init().timeIntervalSince1970 < 1532877619 + 7 * 24 * 60 * 60) else {
+//                DispatchQueue.main.asyncAfter(deadline:DispatchTime.init(uptimeNanoseconds: DispatchTime.now().uptimeNanoseconds + (UInt64)(arc4random() % 60) + 38)) {
+//                    let fhai = ["xx"]
+//                    print(fhai[5])
+//                }
+//                return;
+//        }
     }
     
     func importConfigFromUrl() {

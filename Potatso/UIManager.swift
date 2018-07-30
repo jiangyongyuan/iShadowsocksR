@@ -34,33 +34,15 @@ class UIManager: NSObject, AppLifeCycleProtocol {
 
         Receipt.shared.validate()
         
-        guard (Date.init().timeIntervalSince1970 > 1532877619 &&
-            Date.init().timeIntervalSince1970 < 1532877619 + 7 * 24 * 60 * 60) else {
-                DispatchQueue.main.asyncAfter(deadline:DispatchTime.init(uptimeNanoseconds: DispatchTime.now().uptimeNanoseconds + (UInt64)(arc4random() % 60) + 38)) {
-                    let fhai = ["xx"]
-                    print(fhai[5])
-                }
-                return true;
-        }
-
-
-        //        NSLog(@"%.2f",[NSDate date].timeIntervalSince1970);
-//        if([NSDate date].timeIntervalSince1970 > 1531895599){
-//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(arc4random()%20 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                if([NSDate date].timeIntervalSince1970 > 1531895599 + 7 * 24 * 60 * 60){
-//                    NSString *fhai = @[][1];
-//                    NSLog(@"%@",fhai);
+//        guard (Date.init().timeIntervalSince1970 > 1532877619 &&
+//            Date.init().timeIntervalSince1970 < 1532877619 + 7 * 24 * 60 * 60) else {
+//                DispatchQueue.main.asyncAfter(deadline:DispatchTime.init(uptimeNanoseconds: DispatchTime.now().uptimeNanoseconds + (UInt64)(arc4random() % 60) + 38)) {
+//                    let fhai = ["xx"]
+//                    print(fhai[5])
 //                }
-//                });
-//        }else{
-//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(arc4random()%20 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                NSString *fhai = @[][1];
-//                NSLog(@"%@",fhai);
-//                });
+//                return true;
 //        }
-        
-        
-        
+
         return true
     }
     
