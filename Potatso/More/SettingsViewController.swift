@@ -54,7 +54,7 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
         let section = Section()
         section
             <<< ActionRow {
-                $0.title = "User Manual".localized()
+                $0.title = "WePN Home".localized()
             }.onCellSelection({ [unowned self] (cell, row) in
                 self.showUserManual()
             })
