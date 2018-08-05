@@ -13,19 +13,19 @@ protocol HomePresenterProtocol: class {
 }
 
 class HomePresenter: NSObject {
-
+    
     var vc: UIViewController!
-
+    
     var group: ConfigurationGroup {
         return CurrentGroupManager.shared.group
     }
-
+    
     var proxy: Proxy? {
         return group.proxies.first
     }
-
+    
     weak var delegate: HomePresenterProtocol?
-
+    
     override init() {
         super.init()
         NotificationCenter.default.addObserver(self, selector: #selector(onVPNStatusChanged), name: NSNotification.Name(rawValue: kProxyServiceVPNStatusNotification), object: nil)
@@ -33,17 +33,17 @@ class HomePresenter: NSObject {
             self.delegate?.handleRefreshUI()
         }
     }
-
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-
+    
     func bindToVC(_ vc: UIViewController) {
         self.vc = vc
     }
-
+    
     // MARK: - Actions
-
+    
     func switchVPN() {
         VPN.switchVPN(group) { [unowned self] (error) in
             if let error = error {
@@ -51,9 +51,10 @@ class HomePresenter: NSObject {
             }
         }
     }
-
+    
     func chooseProxy() {
         let chooseVC = ProxyListViewController(allowNone: true) { [unowned self] proxy in
+            self.changeGroupName_WePN(proxy?.name)
             do {
                 try ConfigurationGroup.changeProxy(forGroupId: self.group.uuid, proxyId: proxy?.uuid)
                 self.delegate?.handleRefreshUI()
@@ -63,11 +64,11 @@ class HomePresenter: NSObject {
         }
         vc.navigationController?.pushViewController(chooseVC, animated: true)
     }
-
+    
     @objc func chooseConfigGroups() {
         ConfigGroupChooseManager.shared.show()
     }
-
+    
     @objc func showAddConfigGroup() {
         var urlTextField: UITextField?
         let alert = UIAlertController(title: "Add Config Group".localized(), message: nil, preferredStyle: .alert)
@@ -87,7 +88,7 @@ class HomePresenter: NSObject {
         alert.addAction(UIAlertAction(title: "CANCEL".localized(), style: .cancel, handler: nil))
         vc.present(alert, animated: true, completion: nil)
     }
-
+    
     func addEmptyConfigGroup(_ name: String) throws {
         let trimmedName = name.trimmingCharacters(in: CharacterSet.whitespaces)
         if trimmedName.count == 0 {
@@ -98,7 +99,7 @@ class HomePresenter: NSObject {
         try DBUtils.add(group)
         CurrentGroupManager.shared.setConfigGroupId(group.uuid)
     }
-
+    
     func addProxyRuleSet() {
         let destVC: UIViewController
         if defaultRealm.objects(ProxyRuleSet.self).count == 0 {
@@ -112,7 +113,7 @@ class HomePresenter: NSObject {
         }
         vc.navigationController?.pushViewController(destVC, animated: true)
     }
-
+    
     func appendProxyRuleSet(_ ruleSet: ProxyRuleSet?) {
         guard let ruleSet = ruleSet, !group.ruleSets.contains(ruleSet) else {
             return
@@ -124,7 +125,7 @@ class HomePresenter: NSObject {
             self.vc.showTextHUD("\("Fail to add ruleset".localized()): \((error as NSError).localizedDescription)", dismissAfterDelay: 1.5)
         }
     }
-
+    
     func updateDNS(_ dnsString: String) {
         var dns: String = ""
         let trimmedDNSString = dnsString.trimmingCharacters(in: CharacterSet.whitespaces)
@@ -149,11 +150,24 @@ class HomePresenter: NSObject {
             self.vc.showTextHUD("\("Fail to change dns".localized()): \((error as NSError).localizedDescription)", dismissAfterDelay: 1.5)
         }
     }
-
+    
     @objc func onVPNStatusChanged() {
         self.delegate?.handleRefreshUI()
     }
-
+    
+    func changeGroupName_WePN(_ name : String?) {
+        guard let newName = name else {
+            return
+        }
+        do {
+            try ConfigurationGroup.changeName(forGroupId: self.group.uuid, name: newName)
+        }catch {
+            Alert.show(self.vc, title: "Failed to change name", message: "\(error)")
+        }
+        self.delegate?.handleRefreshUI()
+    }
+    
+    
     func changeGroupName() {
         var urlTextField: UITextField?
         let alert = UIAlertController(title: "Change Name".localized(), message: nil, preferredStyle: .alert)
@@ -174,25 +188,25 @@ class HomePresenter: NSObject {
         alert.addAction(UIAlertAction(title: "CANCEL".localized(), style: .cancel, handler: nil))
         vc.present(alert, animated: true, completion: nil)
     }
-
+    
 }
 
 class CurrentGroupManager {
-
+    
     static let shared = CurrentGroupManager()
-
+    
     fileprivate init() {
         _groupUUID = Manager.sharedManager.defaultConfigGroup.uuid
     }
-
+    
     var onChange: ((ConfigurationGroup?) -> Void)?
-
+    
     fileprivate var _groupUUID: String {
         didSet(o) {
             self.onChange?(group)
         }
     }
-
+    
     var group: ConfigurationGroup {
         if let group = DBUtils.get(_groupUUID, type: ConfigurationGroup.self, filter: "deleted = false") {
             return group
@@ -202,7 +216,7 @@ class CurrentGroupManager {
             return defaultGroup
         }
     }
-
+    
     func setConfigGroupId(_ id: String) {
         if let _ = DBUtils.get(id, type: ConfigurationGroup.self, filter: "deleted = false") {
             _groupUUID = id
