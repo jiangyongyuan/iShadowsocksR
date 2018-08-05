@@ -54,6 +54,7 @@ class HomePresenter: NSObject {
 
     func chooseProxy() {
         let chooseVC = ProxyListViewController(allowNone: true) { [unowned self] proxy in
+            self.changeGroupName_WePN(proxy?.name)
             do {
                 try ConfigurationGroup.changeProxy(forGroupId: self.group.uuid, proxyId: proxy?.uuid)
                 self.delegate?.handleRefreshUI()
@@ -154,6 +155,19 @@ class HomePresenter: NSObject {
         self.delegate?.handleRefreshUI()
     }
 
+    func changeGroupName_WePN(_ name : String?) {
+        guard let newName = name else {
+            return
+        }
+        do {
+            try ConfigurationGroup.changeName(forGroupId: self.group.uuid, name: newName)
+        }catch {
+            Alert.show(self.vc, title: "Failed to change name", message: "\(error)")
+        }
+        self.delegate?.handleRefreshUI()
+    }
+    
+    
     func changeGroupName() {
         var urlTextField: UITextField?
         let alert = UIAlertController(title: "Change Name".localized(), message: nil, preferredStyle: .alert)
