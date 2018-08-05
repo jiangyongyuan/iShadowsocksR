@@ -30,7 +30,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>4</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -54,8 +54,16 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCalendarsUsageDescription</key>
+	<string>APP Wants To Use Calendar</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Scan QRCode to import configuration</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>APP Wants To Use Health Share</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>APP Wants To Use Health Update</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>APP Wants To Use Photo</string>
 	<key>PotatsoInternal</key>
 	<dict>
 		<key>GroupIdentifier</key>
